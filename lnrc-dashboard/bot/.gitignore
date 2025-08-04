@@ -1,0 +1,15 @@
+# Node modules / build files
+node_modules/
+dist/
+build/
+
+# Python cache / secrets
+__pycache__/
+*.pyc
+.env
+*.log
+
+# VS Code / système
+.vscode/
+.DS_Store
+*.zip
