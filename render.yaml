@@ -1,19 +1,18 @@
 services:
   - type: web
-    name: lnrc-telegram-bot
-    env: python
-    repo: https://github.com/raouldecasa/lnrc-rotation
-    branch: main
+    name: telegram-bot
+    runtime: python
+    rootDir: ./bot
     buildCommand: pip install -r requirements.txt
-    startCommand: python bot/bot.py
-    envVars:
-      - key: BOT_TOKEN
-        sync: false
-      - key: CHAT_ID
-        sync: false
-      - key: RPC_URL
-        sync: false
-      - key: CONTRACT_ADDRESS
-        sync: false
+    startCommand: python bot.py
     plan: free
-    autoDeploy: true
+    numInstances: 1
+    envVars:
+      - key: TELEGRAM_BOT_TOKEN
+        value: from-dashboard
+      - key: CHAT_ID
+        value: from-dashboard
+      - key: RPC_URL
+        value: from-dashboard
+      - key: CONTRACT_ADDRESS
+        value: from-dashboard
