@@ -1,33 +1,19 @@
 services:
-  - type: worker
-    name: lnrc-rotation-bot
-    runtime: python
-    buildCommand: "pip install -r requirements.txt"
-    startCommand: "python bot/bot_debug.py"
+  - type: web
+    name: lnrc-telegram-bot
+    env: python
+    repo: https://github.com/raouldecasa/lnrc-rotation
+    branch: main
+    buildCommand: pip install -r requirements.txt
+    startCommand: python bot/bot.py
     envVars:
-      - key: RPC_URL
-        sync: false
-      - key: CONTRACT_ADDRESS
-        sync: false
       - key: BOT_TOKEN
         sync: false
       - key: CHAT_ID
         sync: false
-      - key: WALLET_1
+      - key: RPC_URL
         sync: false
-      - key: WALLET_2
+      - key: CONTRACT_ADDRESS
         sync: false
-      - key: WALLET_3
-        sync: false
-      - key: WALLET_4
-        sync: false
-      - key: PK_1
-        sync: false
-      - key: PK_2
-        sync: false
-      - key: PK_3
-        sync: false
-      - key: PK_4
-        sync: false
-      - key: MARKETING_WALLET
-        sync: false
+    plan: free
+    autoDeploy: true
