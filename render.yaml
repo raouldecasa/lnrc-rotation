@@ -1,5 +1,5 @@
 services:
-  # Service 1 — Rotation automatique (Node.js)
+  # Service 1 — Rotation automatique LNRC (Node.js)
   - type: worker
     name: lnrc-rotation
     runtime: node
@@ -8,7 +8,6 @@ services:
     buildCommand: npm ci --omit=dev
     startCommand: npm start
     envVars:
-      # Réseau & Token
       - key: RPC_URL
         sync: false
       - key: TOKEN_ADDRESS
@@ -17,12 +16,10 @@ services:
         sync: false
       - key: TOKEN_DECIMALS
         sync: false
-      # Taxes du token
       - key: TOKEN_TAX_RATE
         sync: false
       - key: TOKEN_GROSS_UP
         sync: false
-      # Wallets
       - key: WALLET_1_PRIVKEY
         sync: false
       - key: WALLET_2_PRIVKEY
@@ -31,7 +28,6 @@ services:
         sync: false
       - key: WALLET_4_PRIVKEY
         sync: false
-      # Paramètres d'activité
       - key: AMOUNT_TOKEN_PER_TX
         sync: false
       - key: AMOUNT_JITTER_PCT
@@ -40,11 +36,10 @@ services:
         sync: false
       - key: MIN_TOKEN_BALANCE
         sync: false
-      # Alertes (facultatif)
       - key: DISCORD_WEBHOOK_URL
         sync: false
 
-  # Service 2 — IA de monitoring (Python)
+  # Service 2 — IA Monitoring LNRC (Python)
   - type: worker
     name: lnrc-ai-monitor
     runtime: python
@@ -59,11 +54,9 @@ services:
         sync: false
       - key: CHAIN_ID
         sync: false
-      # Seuils & cadence (exemples ; adapte si tu veux)
       - key: POLL_SECONDS
         value: 30
       - key: ALERT_THRESHOLD_USD
         value: "5000"
-      # Alertes (facultatif)
       - key: DISCORD_WEBHOOK_URL
         sync: false
