@@ -1,0 +1,36 @@
+services:
+  - type: web
+    name: telegram-bot
+    runtime: python
+    rootDir: ./bot
+    buildCommand: pip install -r requirements.txt
+    startCommand: python bot.py
+    plan: free
+    numInstances: 1
+    envVars:
+      - key: TELEGRAM_BOT_TOKEN
+        value: from-dashboard
+      - key: CHAT_ID
+        value: from-dashboard
+      - key: RPC_URL
+        value: from-dashboard
+      - key: CONTRACT_ADDRESS
+        value: from-dashboard
+
+  - type: web
+    name: lnrc-ai-monitor
+    runtime: python
+    rootDir: ./ai
+    buildCommand: pip install -r requirements.txt
+    startCommand: python ai_volume_analyzer.py
+    plan: free
+    numInstances: 1
+    envVars:
+      - key: TELEGRAM_BOT_TOKEN
+        value: from-dashboard
+      - key: CHAT_ID
+        value: from-dashboard
+      - key: RPC_URL
+        value: from-dashboard
+      - key: CONTRACT_ADDRESS
+        value: from-dashboard
