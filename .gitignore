@@ -1,0 +1,11 @@
+# venv / node
+venv/
+node_modules/
+
+# Environnements
+.env
+.env.local
+
+# OS / IDE
+.DS_Store
+*.log

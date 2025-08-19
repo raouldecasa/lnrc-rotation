@@ -1,36 +1,69 @@
 services:
-  - type: web
-    name: telegram-bot
-    runtime: python
-    rootDir: ./bot
-    buildCommand: pip install -r requirements.txt
-    startCommand: python bot.py
+  # Service 1 — Rotation automatique (Node.js)
+  - type: worker
+    name: lnrc-rotation
+    runtime: node
+    rootDir: ./rotation-js
     plan: free
-    numInstances: 1
+    buildCommand: npm ci --omit=dev
+    startCommand: npm start
     envVars:
-      - key: TELEGRAM_BOT_TOKEN
-        value: from-dashboard
-      - key: CHAT_ID
-        value: from-dashboard
+      # Réseau & Token
       - key: RPC_URL
-        value: from-dashboard
-      - key: CONTRACT_ADDRESS
-        value: from-dashboard
+        sync: false
+      - key: TOKEN_ADDRESS
+        sync: false
+      - key: CHAIN_ID
+        sync: false
+      - key: TOKEN_DECIMALS
+        sync: false
+      # Taxes du token
+      - key: TOKEN_TAX_RATE
+        sync: false
+      - key: TOKEN_GROSS_UP
+        sync: false
+      # Wallets
+      - key: WALLET_1_PRIVKEY
+        sync: false
+      - key: WALLET_2_PRIVKEY
+        sync: false
+      - key: WALLET_3_PRIVKEY
+        sync: false
+      - key: WALLET_4_PRIVKEY
+        sync: false
+      # Paramètres d'activité
+      - key: AMOUNT_TOKEN_PER_TX
+        sync: false
+      - key: AMOUNT_JITTER_PCT
+        sync: false
+      - key: NUM_TX_PER_DAY
+        sync: false
+      - key: MIN_TOKEN_BALANCE
+        sync: false
+      # Alertes (facultatif)
+      - key: DISCORD_WEBHOOK_URL
+        sync: false
 
-  - type: web
+  # Service 2 — IA de monitoring (Python)
+  - type: worker
     name: lnrc-ai-monitor
     runtime: python
     rootDir: ./ai
+    plan: free
     buildCommand: pip install -r requirements.txt
     startCommand: python ai_volume_analyzer.py
-    plan: free
-    numInstances: 1
     envVars:
-      - key: TELEGRAM_BOT_TOKEN
-        value: from-dashboard
-      - key: CHAT_ID
-        value: from-dashboard
       - key: RPC_URL
-        value: from-dashboard
+        sync: false
       - key: CONTRACT_ADDRESS
-        value: from-dashboard
+        sync: false
+      - key: CHAIN_ID
+        sync: false
+      # Seuils & cadence (exemples ; adapte si tu veux)
+      - key: POLL_SECONDS
+        value: 30
+      - key: ALERT_THRESHOLD_USD
+        value: "5000"
+      # Alertes (facultatif)
+      - key: DISCORD_WEBHOOK_URL
+        sync: false
